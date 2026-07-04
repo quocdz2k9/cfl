@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Bảng lưu số liệu tổng hợp toàn hệ thống
+model SystemMetric {
+  id         String   @id @default("global_metrics")
+  totalRedeem Int      @default(0)
+  totalIdUsed Int      @default(0)
+  updatedAt  DateTime @updatedAt
+}
+
+// Bảng tạm để track trạng thái đang online dựa trên ip hoặc session ẩn danh
+model ActiveSession {
+  id         String   @id @default(uuid())
+  clientIp   String   @unique
+  lastActive DateTime @default(now())
+}
+
