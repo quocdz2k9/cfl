@@ -350,25 +350,25 @@ export default function Home() {
   const calculatedCodeCount = codeTextArea.split("\n").map((c) => c.trim()).filter((c) => c !== "").length;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#000000] text-black dark:text-white flex flex-col transition-colors duration-200 relative">
-      <nav className="sticky top-0 z-50 bg-white dark:bg-[#000000] border-b border-black dark:border-white px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-white dark:bg-[#000000] text-black dark:text-white flex flex-col transition-colors duration-300 relative selection:bg-black/10 dark:selection:bg-white/20">
+      <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-[#000000]/80 border-b border-black dark:border-white px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between transition-all">
         <div className="flex items-center gap-3">
-          <Terminal className="w-7 h-7 text-black dark:text-white" />
-          <h1 className="text-lg sm:text-xl font-bold tracking-tight text-black dark:text-white">
+          <Terminal className="w-6 h-6 sm:w-7 h-7 text-black dark:text-white transition-transform hover:rotate-12" />
+          <h1 className="text-base sm:text-xl font-bold tracking-tight text-black dark:text-white">
             CFL Code Multi-Redeemer Pro
           </h1>
         </div>
         <button
           onClick={toggleTheme}
-          className="p-2 rounded-lg bg-white dark:bg-[#000000] text-black dark:text-white transition-colors z-10 cursor-pointer border border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+          className="p-2 rounded-lg bg-transparent text-black dark:text-white transition-all z-10 cursor-pointer border border-black dark:border-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black active:scale-95"
           aria-label="Toggle Theme"
         >
-          {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          {darkMode ? <Sun className="w-4 h-4 sm:w-5 sm:h-5" /> : <Moon className="w-4 h-4 sm:w-5 sm:h-5" />}
         </button>
       </nav>
 
-      <div className="flex flex-col gap-6 p-4 sm:p-6 lg:p-8 flex-1 max-w-7xl w-full mx-auto relative z-10">
-        <div className="flex flex-wrap items-center gap-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs font-mono max-w-fit">
+      <div className="flex flex-col gap-6 p-4 sm:p-6 lg:p-8 flex-1 max-w-[1920px] w-full mx-auto relative z-10">
+        <div className="flex flex-wrap items-center gap-3 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl p-3 text-xs font-mono max-w-fit shadow-xs">
           <span className="flex items-center gap-1.5 text-green-600 dark:text-green-400 font-bold">
             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
             Trực tuyến: {dbStats.onlineCount}
@@ -379,24 +379,24 @@ export default function Home() {
           <span className="font-semibold text-purple-600 dark:text-purple-400">ID lưu trữ: {dbStats.totalIdUsed}</span>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
-          <div className="lg:col-span-2 flex flex-col gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-6 items-start">
+          <div className="lg:col-span-2 flex flex-col gap-5">
             <div>
-              <div className="flex flex-row items-center justify-between gap-2 mb-1.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                 <label className="block text-xs font-bold text-black dark:text-white uppercase tracking-wider">
                   ID Nhân Vật (RoleId)
                 </label>
-                <div className="flex items-center gap-1.5">
+                <div className="flex flex-wrap items-center gap-1.5">
                   <button
                     onClick={() => setIsGuideModalOpen(true)}
-                    className="inline-flex items-center justify-center gap-1 text-[11px] font-bold py-1 px-2.5 rounded bg-white dark:bg-[#000000] border border-black dark:border-white text-black dark:text-white transition-all active:scale-[0.98] cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                    className="inline-flex items-center justify-center gap-1 text-[11px] font-bold py-1.5 px-3 rounded bg-transparent border border-black dark:border-white text-black dark:text-white transition-all active:scale-95 cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
                   >
                     <HelpCircle className="w-3.5 h-3.5" />
                     Hướng dẫn lấy ID
                   </button>
                   <button
                     onClick={() => { setModalAlert(null); setCurrentPage(1); setIsModalOpen(true); }}
-                    className="inline-flex items-center justify-center gap-1.5 text-[11px] font-bold py-1 px-2.5 rounded bg-white dark:bg-[#000000] border border-black dark:border-white text-black dark:text-white transition-all active:scale-[0.98] cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                    className="inline-flex items-center justify-center gap-1.5 text-[11px] font-bold py-1.5 px-3 rounded bg-transparent border border-black dark:border-white text-black dark:text-white transition-all active:scale-95 cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
                   >
                     Danh Sách ID ({savedAccounts.length} ID)
                   </button>
@@ -407,24 +407,24 @@ export default function Home() {
                 value={roleId}
                 onChange={(e) => setRoleId(e.target.value)}
                 placeholder="Nhập Role ID (Ví dụ: 1526737692)"
-                className="w-full bg-white dark:bg-[#000000] border border-black dark:border-white rounded-lg px-4 py-2.5 text-sm font-mono text-black dark:text-white placeholder-black/40 dark:placeholder-white/40 focus:outline-none"
+                className="w-full bg-transparent border border-black dark:border-white rounded-lg px-4 py-3 text-sm font-mono text-black dark:text-white placeholder-black/40 dark:placeholder-white/40 focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white transition-all"
               />
             </div>
 
             <div className="relative">
-              <div className="flex flex-row items-center justify-between gap-2 mb-1.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                 <label className="block text-xs font-bold text-black dark:text-white uppercase tracking-wider">
                   Danh Sách Code Nhập (Mỗi dòng 1 code)
                 </label>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 self-end sm:self-auto">
                   {showCount && calculatedCodeCount > 0 && (
-                    <span className="text-[11px] font-mono font-bold text-black/60 dark:text-white/60 bg-black/5 dark:bg-white/10 px-2 py-0.5 rounded border border-black/10 dark:border-white/10">
+                    <span className="text-[11px] font-mono font-bold text-black/60 dark:text-white/60 bg-black/5 dark:bg-white/10 px-2 py-1 rounded border border-black/10 dark:border-white/10">
                       Số lượng: {calculatedCodeCount} code
                     </span>
                   )}
                   <button
                     onClick={handleImportAllDefaultCodes}
-                    className="inline-flex items-center justify-center gap-1.5 text-[11px] font-bold py-1 px-2.5 rounded bg-white dark:bg-[#000000] border border-black dark:border-white text-black dark:text-white transition-all active:scale-[0.98] cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                    className="inline-flex items-center justify-center gap-1.5 text-[11px] font-bold py-1.5 px-3 rounded bg-transparent border border-black dark:border-white text-black dark:text-white transition-all active:scale-95 cursor-pointer hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
                   >
                     <ClipboardList className="w-3.5 h-3.5" />
                     Danh Sách Code Mẫu
@@ -440,42 +440,42 @@ export default function Home() {
                       setShowCount(false);
                     }
                   }}
-                  rows={6}
+                  rows={7}
                   placeholder="Nhập code thủ công tại đây hoặc nhấn nút lấy danh sách mẫu phía trên..."
-                  className="w-full bg-white dark:bg-[#000000] border border-black dark:border-white rounded-lg p-3 pr-10 text-sm font-mono text-black dark:text-white placeholder-black/40 dark:placeholder-white/40 focus:outline-none resize-y"
+                  className="w-full bg-transparent border border-black dark:border-white rounded-lg p-4 pr-12 text-sm font-mono text-black dark:text-white placeholder-black/40 dark:placeholder-white/40 focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white transition-all resize-y custom-scrollbar"
                 />
                 {codeTextArea.length > 0 && (
-                  <div className="absolute bottom-3 right-3 z-20" ref={menuRef}>
+                  <div className="absolute bottom-4 right-4 z-20" ref={menuRef}>
                     <button
                       onClick={() => setIsMenuOpen(!isMenuOpen)}
-                      className="p-1.5 rounded-md bg-white dark:bg-black border border-black dark:border-white text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors cursor-pointer"
+                      className="p-2 rounded-md bg-white dark:bg-black border border-black dark:border-white text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer shadow-md active:scale-95"
                     >
                       <Menu className="w-4 h-4" />
                     </button>
 
                     {isMenuOpen && (
-                      <div className="absolute right-0 bottom-full mb-1.5 w-48 bg-white dark:bg-black border border-black dark:border-white rounded-lg shadow-xl overflow-hidden flex flex-col font-mono text-xs text-left">
+                      <div className="absolute right-0 bottom-full mb-2 w-48 bg-white dark:bg-black border border-black dark:border-white rounded-lg shadow-xl overflow-hidden flex flex-col font-mono text-xs text-left backdrop-blur-xs animate-in fade-in slide-in-from-bottom-2 duration-150">
                         <button
                           onClick={() => { setCodeTextArea(""); setShowCount(false); setIsMenuOpen(false); }}
-                          className="w-full flex items-center gap-2 px-3 py-2 text-red-600 dark:text-red-400 hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-left font-bold"
+                          className="w-full flex items-center gap-2 px-4 py-2.5 text-red-600 dark:text-red-400 hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-left font-bold"
                         >
                           <Eraser className="w-3.5 h-3.5" /> Xóa tất cả code
                         </button>
                         <button
                           onClick={handleFormatCodes}
-                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-left"
+                          className="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-left border-t border-black/5 dark:border-white/5"
                         >
                           <AlignLeft className="w-3.5 h-3.5" /> Định dạng số lượng
                         </button>
                         <button
                           onClick={handleUppercaseCodes}
-                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-left"
+                          className="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-left border-t border-black/5 dark:border-white/5"
                         >
                           <Type className="w-3.5 h-3.5" /> Đổi chữ hoa
                         </button>
                         <button
                           onClick={handleDistinctCodes}
-                          className="w-full flex items-center gap-2 px-3 py-2 hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-left"
+                          className="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-left border-t border-black/5 dark:border-white/5"
                         >
                           <Sparkles className="w-3.5 h-3.5" /> Lọc trùng lặp
                         </button>
@@ -485,103 +485,103 @@ export default function Home() {
                 )}
               </div>
             </div>
+
+            <div className="w-full mt-2">
+              <button
+                onClick={handleRedeemAll}
+                disabled={loading}
+                className={`w-full flex items-center justify-center gap-2 font-bold text-sm py-4 rounded-lg transition-all border border-black dark:border-white active:scale-[0.99] shadow-xs ${
+                  loading
+                    ? "bg-black/10 dark:bg-white/10 text-black/40 dark:text-white/40 cursor-not-allowed border-black/20 dark:border-white/20"
+                    : "bg-black dark:bg-white text-white dark:text-black cursor-pointer hover:bg-transparent hover:text-black dark:hover:bg-transparent dark:hover:text-white"
+                }`}
+              >
+                {loading ? (
+                  <RefreshCw className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Play className="w-5 h-5 fill-current" />
+                )}
+                {loading ? "ĐANG TIẾN HÀNH..." : "KÍCH HOẠT HÀNG LOẠT"}
+              </button>
+            </div>
           </div>
 
-          <div className="w-full lg:self-end">
-            <button
-              onClick={handleRedeemAll}
-              disabled={loading}
-              className={`w-full flex items-center justify-center gap-2 font-bold text-sm py-4 rounded-lg transition-all border border-black dark:border-white ${
-                loading
-                  ? "bg-black/10 dark:bg-white/10 text-black/40 dark:text-white/40 cursor-not-allowed"
-                  : "bg-black dark:bg-white text-white dark:text-black cursor-pointer hover:bg-white hover:text-black dark:hover:bg-[#000000] dark:hover:text-white"
-              }`}
-            >
-              {loading ? (
-                <RefreshCw className="w-5 h-5 animate-spin" />
+          <div className="bg-white dark:bg-[#000000] rounded-xl border border-black dark:border-white flex flex-col h-[460px] lg:h-[480px] p-4 shadow-sm transition-all relative">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-3 border-b border-black/20 dark:border-white/20 bg-white dark:bg-[#000000] flex-shrink-0 gap-3">
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full ${logs.length > 0 ? "bg-black dark:bg-white animate-pulse" : "bg-black/30 dark:bg-white/30"}`} />
+                <h3 className="font-bold text-xs tracking-wider text-black dark:text-white uppercase">
+                  Nhật Ký Tiến Trình Thực Thi
+                </h3>
+              </div>
+              <div className="flex items-center gap-1.5 w-full sm:w-auto">
+                <button
+                  onClick={() => setFilter("all")}
+                  className={`flex-1 sm:flex-none text-[10px] sm:text-[11px] font-bold py-1 px-2.5 border border-black dark:border-white transition-all cursor-pointer rounded-xs active:scale-95 ${
+                    filter === "all" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                  }`}
+                >
+                  Tổng ({totalCount})
+                </button>
+                <button
+                  onClick={() => setFilter("success")}
+                  className={`flex-1 sm:flex-none text-[10px] sm:text-[11px] font-bold py-1 px-2.5 border border-black dark:border-white transition-all cursor-pointer rounded-xs active:scale-95 ${
+                    filter === "success" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                  }`}
+                >
+                  Thành công ({successCount})
+                </button>
+                <button
+                  onClick={() => setFilter("error")}
+                  className={`flex-1 sm:flex-none text-[10px] sm:text-[11px] font-bold py-1 px-2.5 border border-black dark:border-white transition-all cursor-pointer rounded-xs active:scale-95 ${
+                    filter === "error" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+                  }`}
+                >
+                  Thất bại ({errorCount})
+                </button>
+              </div>
+            </div>
+            <div className="overflow-y-auto flex-1 custom-scrollbar min-h-0">
+              {filteredLogs.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full py-12 text-black/50 dark:text-white/50 gap-3">
+                  <Inbox className="w-10 h-10 stroke-[1.2]" />
+                  <p className="text-xs sm:text-sm italic text-center">Chưa có dữ liệu phù hợp với bộ lọc hiện tại.</p>
+                </div>
               ) : (
-                <Play className="w-5 h-5 fill-current" />
-              )}
-              {loading ? "ĐANG TIẾN HÀNH..." : "KÍCH HOẠT HÀNG LOẠT"}
-            </button>
-          </div>
-        </div>
-
-        <div className="bg-white dark:bg-[#000000] rounded-xl border border-black dark:border-white flex flex-col max-h-[380px] mt-2 p-4 shadow-sm">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-3 border-b border-black/20 dark:border-white/20 bg-white dark:bg-[#000000] flex-shrink-0 gap-3">
-            <div className="flex items-center gap-2">
-              <div className={`w-2 h-2 rounded-full ${logs.length > 0 ? "bg-black dark:bg-white animate-pulse" : "bg-black/30 dark:bg-white/30"}`} />
-              <h3 className="font-bold text-xs tracking-wider text-black dark:text-white uppercase">
-                Nhật Ký Tiến Trình Thực Thi
-              </h3>
-            </div>
-            <div className="flex items-center gap-1.5 w-full sm:w-auto">
-              <button
-                onClick={() => setFilter("all")}
-                className={`flex-1 sm:flex-none text-[11px] font-bold py-1 px-3 border border-black dark:border-white transition-all cursor-pointer ${
-                  filter === "all" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-white text-black dark:bg-[#000000] dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
-                }`}
-              >
-                Tổng ({totalCount})
-              </button>
-              <button
-                onClick={() => setFilter("success")}
-                className={`flex-1 sm:flex-none text-[11px] font-bold py-1 px-3 border border-black dark:border-white transition-all cursor-pointer ${
-                  filter === "success" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-white text-black dark:bg-[#000000] dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
-                }`}
-              >
-                Thành công ({successCount})
-              </button>
-              <button
-                onClick={() => setFilter("error")}
-                className={`flex-1 sm:flex-none text-[11px] font-bold py-1 px-3 border border-black dark:border-white transition-all cursor-pointer ${
-                  filter === "error" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-white text-black dark:bg-[#000000] dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
-                }`}
-              >
-                Thất bại ({errorCount})
-              </button>
-            </div>
-          </div>
-          <div className="overflow-y-auto flex-1 custom-scrollbar pt-2">
-            {filteredLogs.length === 0 ? (
-              <div className="flex flex-col items-center justify-center py-12 text-black/60 dark:text-white/60 gap-3">
-                <Inbox className="w-10 h-10 stroke-[1.5]" />
-                <p className="text-xs sm:text-sm italic text-center">Chưa có dữ liệu phù hợp với bộ lọc hiện tại.</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto w-full">
-                <table className="w-full text-left border-collapse text-xs min-w-[600px]">
-                  <thead className="sticky top-0 bg-white dark:bg-[#000000] text-black dark:text-white uppercase font-mono border-b border-black dark:border-white z-10">
-                    <tr>
-                      <th className="py-2.5 px-4 w-24">Thời Gian</th>
-                      <th className="py-2.5 px-4 w-32">ID Người Dùng</th>
-                      <th className="py-2.5 px-4 w-44">Mã Quà Tặng</th>
-                      <th className="py-2.5 px-4">Thông Báo Trả Về</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-black/10 dark:divide-white/10 font-mono">
-                    {filteredLogs.map((log, index) => (
-                      <tr
-                        key={index}
-                        className={`transition-colors ${
-                          log.status === "success" ? "bg-black/5 dark:bg-white/10 text-black dark:text-white font-bold" : "bg-black/5 dark:bg-white/5 text-black/80 dark:text-white/80"
-                        }`}
-                      >
-                        <td className="py-2 px-4 text-black/50 dark:text-white/50">{log.time}</td>
-                        <td className="py-2 px-4 font-semibold">{log.id}</td>
-                        <td className="py-2 px-4 font-bold tracking-wider">{log.code}</td>
-                        <td className="py-2 px-4 flex items-center gap-2">
-                          {log.status === "success" && <CheckCircle2 className="w-4 h-4 flex-shrink-0" />}
-                          {log.status === "error" && <XCircle className="w-4 h-4 flex-shrink-0" />}
-                          {log.status === "processing" && <RefreshCw className="w-3.5 h-3.5 animate-spin flex-shrink-0" />}
-                          <span className="truncate max-w-xs sm:max-w-md">{log.message}</span>
-                        </td>
+                <div className="overflow-x-auto w-full custom-scrollbar">
+                  <table className="w-full text-left border-collapse text-xs min-w-[500px]">
+                    <thead className="sticky top-0 bg-white dark:bg-[#000000] text-black dark:text-white uppercase font-mono border-b border-black dark:border-white z-10">
+                      <tr>
+                        <th className="py-2.5 px-3 w-20">Thời Gian</th>
+                        <th className="py-2.5 px-3 w-28">ID Người Dùng</th>
+                        <th className="py-2.5 px-3 w-36">Mã Quà Tặng</th>
+                        <th className="py-2.5 px-3">Thông Báo Trả Về</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
+                    </thead>
+                    <tbody className="divide-y divide-black/10 dark:divide-white/10 font-mono">
+                      {filteredLogs.map((log, index) => (
+                        <tr
+                          key={index}
+                          className={`transition-colors ${
+                            log.status === "success" ? "bg-black/5 dark:bg-white/10 text-black dark:text-white font-bold" : "bg-transparent text-black/80 dark:text-white/80 hover:bg-black/5 dark:hover:bg-white/5"
+                          }`}
+                        >
+                          <td className="py-2 px-3 text-black/50 dark:text-white/50 whitespace-nowrap">{log.time}</td>
+                          <td className="py-2 px-3 font-semibold whitespace-nowrap">{log.id}</td>
+                          <td className="py-2 px-3 font-bold tracking-wider whitespace-nowrap text-blue-600 dark:text-blue-400">{log.code}</td>
+                          <td className="py-2 px-3 flex items-center gap-1.5 min-w-0">
+                            {log.status === "success" && <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />}
+                            {log.status === "error" && <XCircle className="w-4 h-4 text-red-500 flex-shrink-0" />}
+                            {log.status === "processing" && <RefreshCw className="w-3.5 h-3.5 text-yellow-500 animate-spin flex-shrink-0" />}
+                            <span className="truncate max-w-[180px] sm:max-w-xs block">{log.message}</span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

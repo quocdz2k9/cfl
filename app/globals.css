@@ -1,44 +1,52 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));                        
+@custom-variant dark (&:where(.dark, .dark *));
 
-:root {                                                                  
-  --background: #FFFFFF;
-  --foreground: #000000;                                                 
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
 }
 
-.dark {                                                                  
-  --background: #000000;                                                 
-  --foreground: #FFFFFF;                                                 
-}                                                                      
+.dark {
+  --background: #000000;
+  --foreground: #ffffff;
+}
 
-@theme inline {                                                          
+@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-}                                                                      
+}
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: system-ui, -apple-system, sans-serif;
-  transition: background-color 0.2s ease, color 0.2s ease;               
-  overflow-x: hidden;                                                  
-}                                                                                                                                             
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
+}
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;                                                         
+  width: 6px;
+  height: 6px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
-}                                                                      
+}
 
-.custom-scrollbar::-webkit-scrollbar-thumb {                             
-  background: #000000;                                                   
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 9999px;
 }
 
 .dark .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #FFFFFF;
-}                                                                      
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
 
