@@ -12,45 +12,19 @@ import {
   Sun,
   Moon,
   Inbox,
-  UserPlus,
-  AlertCircle,
-  Copy,
-  X,
-  ChevronLeft,
-  ChevronRight,
   Menu,
   Eraser,
   AlignLeft,
   Type,
   Sparkles,
-  Trash2,
-  ChevronDown,
-  ChevronUp,
-  HelpCircle,
-  BookOpen,
-  ShieldAlert
+  HelpCircle
 } from "lucide-react";
 
-interface LogEntry {
-  time: string;
-  id: string;
-  code: string;
-  status: "success" | "error" | "processing";
-  message: string;
-}
-
-interface SavedAccount {
-  roleId: string;
-  roleName: string;
-  serverName: string;
-  level: string;
-}
-
-interface DBStats {
-  totalRedeem: number;
-  totalIdUsed: number;
-  onlineCount: number;
-}
+import { LogEntry, SavedAccount, DBStats } from "./types";
+import Footer from "./components/Footer";
+import GuideModal from "./components/GuideModal";
+import IdListModal from "./components/IdListModal";
+import DeleteConfirmModal from "./components/DeleteConfirmModal";
 
 const DEFAULT_CODES = [
   "LIKE500KCFL", "CFLTOP1APP", "CFLTOP1GG", "TOP1APPLECFL", "CONGDONGCFL110K",
@@ -611,286 +585,36 @@ export default function Home() {
           </div>
         </div>
 
-        <footer className="mt-8 border border-black dark:border-white bg-white dark:bg-[#000000] rounded-xl p-4 font-mono text-xs flex flex-col gap-4 shadow-sm">
-          <div className="border-b border-black/10 dark:border-white/10 pb-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-            <span className="font-bold uppercase tracking-wider text-sm">Hệ thống thông tin Crossfire: Legends</span>
-            <span className="text-black/50 dark:text-white/50 text-[11px]">© 2026 CFL Multi-Redeemer. All rights reserved.</span>
-          </div>
-          <div className="flex flex-col gap-3">
-            <div className="border border-black/10 dark:border-white/10 rounded-lg overflow-hidden">
-              <button
-                onClick={() => toggleFooterSection("intro")}
-                className="w-full flex items-center justify-between p-3 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-colors font-bold text-left cursor-pointer"
-              >
-                <span className="flex items-center gap-2">
-                  <BookOpen className="w-4 h-4" />
-                  GIỚI THIỆU TRÒ CHƠI CROSSFIRE: LEGENDS
-                </span>
-                {footerOpenSections.intro ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              </button>
-              {footerOpenSections.intro && (
-                <div className="p-3 text-black/80 dark:text-white/80 leading-relaxed border-t border-black/10 dark:border-white/10 bg-white dark:bg-black">
-                  Crossfire: Legends là tựa game bắn súng góc nhìn thứ nhất (FPS) đỉnh cao trên di động, mang đến trải nghiệm chiến đấu chân thực và kịch tính ngay trong lòng bàn tay. Người chơi sẽ được bước vào những trận đấu rực lửa, nơi tốc độ, chiến thuật và kỹ năng bắn súng quyết định chiến thắng. Game sở hữu đồ họa sắc nét, hiệu ứng chiến đấu sống động, cùng hệ thống điều khiển tối ưu cho di động, giúp thao tác di chuyển, ngắm bắn và đổi vũ khí trở nên mượt mà, dễ làm chủ. Crossfire: Legends mang đến nhiều chế độ chơi đa dạng như Đặt bom, Team Deathmatch, Sinh tồn và Zombie Mode, đáp ứng mọi phong cách chiến đấu – từ đối đầu căng thẳng 5v5 đến sinh tồn nghẹt thở cùng hàng chục người chơi khác. Kho vũ khí phong phú và tùy chỉnh đa dạng cho phép người chơi lựa chọn trang bị phù hợp với lối chơi của mình. Hệ thống xếp hạng, sự kiện và giải đấu liên tục tạo nên một cộng đồng FPS sôi động, nơi người chơi khẳng định bản lĩnh, kỹ năng và niềm đam mê bắn súng đích thực. Crossfire: Legends – nơi mọi phát đạn đều có thể trở thành huyền thoại.
-                </div>
-              )}
-            </div>
-            <div className="border border-black/10 dark:border-white/10 rounded-lg overflow-hidden">
-              <button
-                onClick={() => toggleFooterSection("guide")}
-                className="w-full flex items-center justify-between p-3 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-colors font-bold text-left cursor-pointer"
-              >
-                <span className="flex items-center gap-2">
-                  <HelpCircle className="w-4 h-4" />
-                  CÁCH LẤY ID NHÂN VẬT TRONG GAME
-                </span>
-                {footerOpenSections.guide ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              </button>
-              {footerOpenSections.guide && (
-                <div className="p-3 text-black/80 dark:text-white/80 leading-relaxed border-t border-black/10 dark:border-white/10 bg-white dark:bg-black flex flex-col gap-4">
-                  <div>
-                    <p className="font-bold text-black dark:text-white mb-1">Bước 1: Bấm vào Ảnh Đại Diện</p>
-                    <div className="max-w-md border border-black/20 dark:border-white/20 rounded overflow-hidden">
-                      <img src="https://res.ldrescdn.com/rms/ldplayer/process/img/5b95789c00384ad491632945de1163451765883793.png?x-oss-process=image/format,webp/quality,Q_100/resize,w_1024" alt="Bước 1" className="w-full h-auto object-cover" />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-bold text-black dark:text-white mb-1">Bước 2: Bấm vào Danh Thiếp</p>
-                    <div className="max-w-md border border-black/20 dark:border-white/20 rounded overflow-hidden">
-                      <img src="https://res.ldrescdn.com/rms/ldplayer/process/img/6d084649d1a9471caaac8a5f6aaae2961765883793.png?x-oss-process=image/format,webp/quality,Q_100/resize,w_1024" alt="Bước 2" className="w-full h-auto object-cover" />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="font-bold text-black dark:text-white mb-1">Bước 3: Bấm copy</p>
-                    <div className="max-w-md border border-black/20 dark:border-white/20 rounded overflow-hidden">
-                      <img src="https://res.ldrescdn.com/rms/ldplayer/process/img/acccdc36597c467fb97444a2fa6311ff1765883793.png?x-oss-process=image/format,webp/quality,Q_100/resize,w_1024" alt="Bước 3" className="w-full h-auto object-cover" />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="border border-black/10 dark:border-white/10 rounded-lg overflow-hidden">
-              <button
-                onClick={() => toggleFooterSection("rules")}
-                className="w-full flex items-center justify-between p-3 bg-black/[0.02] dark:bg-white/[0.02] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-colors font-bold text-left cursor-pointer"
-              >
-                <span className="flex items-center gap-2">
-                  <ShieldAlert className="w-4 h-4" />
-                  CÁC LƯU Ý QUAN TRỌNG KHI SỬ DỤNG CODE
-                </span>
-                {footerOpenSections.rules ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-              </button>
-              {footerOpenSections.rules && (
-                <div className="p-3 border-t border-black/10 dark:border-white/10 bg-white dark:bg-black">
-                  <ul className="list-disc pl-5 flex flex-col gap-2 text-black/80 dark:text-white/80">
-                    <li>Kiểm tra lại ký tự trong giftcode. Một số giftcode tính cả chữ <span className="font-bold text-black dark:text-white">IN HOA</span> lẫn chữ thường.</li>
-                    <li>Kiểm tra lại xem có dư ký tự <span className="font-bold text-black dark:text-white">“trắng”</span> ở cuối đoạn văn bản giftcode hay không.</li>
-                    <li>Nếu giftcode vẫn báo lỗi sai, có thể mã đã quá hạn hoặc hệ thống đã đạt giới hạn tối đa lượt nhập.</li>
-                    <li>Một tài khoản chỉ được phép kích hoạt một mã cho mỗi loại giftcode. Có thể có nhiều giftcode khác nhau nhưng cùng chung một nhóm loại quà tặng.</li>
-                    <li>Mỗi giftcode chỉ được sử dụng duy nhất một lần trên một tài khoản chỉ định.</li>
-                    <li>Một số giftcode bị khóa cấu hình cho các khu vực địa lý cụ thể (ví dụ: Châu Á, EU, NA). Hãy chắc chắn rằng mã có giá trị sử dụng cho máy chủ của bạn.</li>
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
-        </footer>
+        <Footer footerOpenSections={footerOpenSections} toggleFooterSection={toggleFooterSection} />
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setIsModalOpen(false)}></div>
-          <div className="bg-white dark:bg-[#000000] border border-black dark:border-white p-5 rounded-xl w-full max-w-md relative z-10 flex flex-col gap-4 shadow-lg">
-            <div className="flex items-center justify-between pb-2 border-b border-black/20 dark:border-white/20">
-              <div className="flex items-center gap-2">
-                <UserPlus className="w-5 h-5 text-black dark:text-white" />
-                <h4 className="text-xs font-bold tracking-wider uppercase">Cấu hình danh sách dữ liệu ID</h4>
-              </div>
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded border border-transparent text-black dark:text-white bg-transparent transition-colors duration-150 active:border-black dark:active:border-white focus:border-black dark:focus:border-white focus:outline-none cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {modalAlert && (
-              <div className={`flex items-start gap-2.5 p-3 rounded-lg border text-xs font-mono transition-all ${
-                modalAlert.type === "success" ? "bg-black/5 dark:bg-white/10 border-black dark:border-white text-black dark:text-white font-bold" : "bg-black/5 dark:bg-white/5 border-black/30 dark:border-white/30 text-black/80 dark:text-white/80"
-              }`}>
-                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                <div className="flex-1">{modalAlert.message}</div>
-              </div>
-            )}
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[10px] font-bold tracking-wider uppercase text-black/60 dark:text-white/60">Nhập ID nhân vật mới</label>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={modalInput}
-                  onChange={(e) => setModalInput(e.target.value)}
-                  placeholder="Nhập ID (Ví dụ: 1526737692)"
-                  className="flex-1 bg-white dark:bg-[#000000] border border-black dark:border-white rounded-lg px-4 py-2 text-sm font-mono text-black dark:text-white placeholder-black/40 dark:placeholder-white/40 focus:outline-none"
-                />
-                <button
-                  onClick={handleSaveModalData}
-                  className="py-2 px-4 rounded border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black text-xs font-bold hover:bg-white hover:text-black dark:hover:bg-[#000000] dark:hover:text-white transition-all cursor-pointer whitespace-nowrap"
-                >
-                  Lưu & Gửi
-                </button>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2 min-h-[120px]">
-              {savedAccounts.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-6 text-black/60 dark:text-white/60 gap-2 border border-dashed border-black/20 dark:border-white/20 rounded-lg bg-black/[0.02] dark:bg-white/[0.02]">
-                  <Inbox className="w-8 h-8 stroke-[1.5]" />
-                  <p className="text-xs italic text-center">Chưa có lưu ID nào trong danh sách cấu hình tạm thời.</p>
-                </div>
-              ) : (
-                <>
-                  {currentAccounts.map((acc) => (
-                    <div
-                      key={acc.roleId}
-                      onClick={() => handleSelectAccount(acc.roleId)}
-                      className="flex items-center justify-between p-2.5 border border-black dark:border-white bg-white dark:bg-black hover:bg-black/5 dark:hover:bg-white/10 cursor-pointer rounded-lg transition-all"
-                    >
-                      <div className="flex flex-col gap-0.5 font-mono text-left">
-                        <div className="text-xs font-bold flex items-center gap-1.5">
-                          <span className="text-black dark:text-white">{acc.roleName}</span>
-                          <span className="text-[10px] px-1 bg-black/5 dark:bg-white/20 rounded text-black/60 dark:text-white/80">Lv.{acc.level}</span>
-                        </div>
-                        <div className="text-[10px] text-black/50 dark:text-white/50">
-                          ID: {acc.roleId} | Server: {acc.serverName}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => handleSelectAccount(acc.roleId)}
-                          className="p-1 border border-black dark:border-white text-black dark:text-white bg-white dark:bg-black text-[10px] font-bold rounded hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black cursor-pointer"
-                        >
-                          <Copy className="w-3 h-3" />
-                        </button>
-                        <button
-                          onClick={(e) => triggerDeleteConfirm(acc, e)}
-                          className="p-1 border border-black dark:border-white text-black dark:text-white bg-white dark:bg-black text-[10px] font-bold rounded hover:bg-red-600 hover:text-white hover:border-red-600 cursor-pointer"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                  {totalPages > 1 && (
-                    <div className="flex items-center justify-between pt-2 border-t border-black/10 dark:border-white/10 text-xs font-mono">
-                      <span className="text-black/60 dark:text-white/60">Trang {currentPage}/{totalPages}</span>
-                      <div className="flex gap-1.5">
-                        <button
-                          disabled={currentPage === 1}
-                          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                          className={`p-1.5 border border-black dark:border-white rounded transition-all cursor-pointer ${currentPage === 1 ? "opacity-40 cursor-not-allowed" : "hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"}`}
-                        >
-                          <ChevronLeft className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          disabled={currentPage === totalPages}
-                          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                          className={`p-1.5 border border-black dark:border-white rounded transition-all cursor-pointer ${currentPage === totalPages ? "opacity-40 cursor-not-allowed" : "hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"}`}
-                        >
-                          <ChevronRight className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-                  )}
-                </>
-              )}
-            </div>
-            <div className="flex justify-end text-xs font-bold pt-2 border-t border-black/10 dark:border-white/10">
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="py-2 px-4 rounded border border-black dark:border-white bg-white text-black dark:bg-[#000000] dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer"
-              >
-                Đóng màn hình
-              </button>
-            </div>
-          </div>
-        </div>
+        <IdListModal
+          onClose={() => setIsModalOpen(false)}
+          modalAlert={modalAlert}
+          modalInput={modalInput}
+          setModalInput={setModalInput}
+          handleSaveModalData={handleSaveModalData}
+          savedAccounts={savedAccounts}
+          currentAccounts={currentAccounts}
+          handleSelectAccount={handleSelectAccount}
+          triggerDeleteConfirm={triggerDeleteConfirm}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
       )}
 
       {isGuideModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setIsGuideModalOpen(false)}></div>
-          <div className="bg-white dark:bg-[#000000] border border-black dark:border-white p-5 rounded-xl w-full max-w-xl relative z-10 flex flex-col gap-4 shadow-xl max-h-[85vh] overflow-y-auto custom-scrollbar font-mono text-xs">
-            <div className="flex items-center justify-between pb-2 border-b border-black/20 dark:border-white/20 sticky top-0 bg-white dark:bg-[#000000] z-10">
-              <div className="flex items-center gap-2">
-                <HelpCircle className="w-5 h-5 text-black dark:text-white" />
-                <h4 className="text-xs font-bold tracking-wider uppercase">Hướng dẫn lấy ID nhân vật chi tiết</h4>
-              </div>
-              <button
-                onClick={() => setIsGuideModalOpen(false)}
-                className="p-1 rounded border border-transparent text-black dark:text-white bg-transparent transition-colors duration-150 active:border-black dark:active:border-white focus:border-black dark:focus:border-white focus:outline-none cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-            <div className="flex flex-col gap-5 py-2">
-              <div className="flex flex-col gap-1.5">
-                <span className="font-bold text-black dark:text-white text-[13px] border-l-2 border-black dark:border-white pl-2">Bước 1: Bấm vào Ảnh Đại Diện</span>
-                <div className="border border-black/10 dark:border-white/10 rounded-lg overflow-hidden bg-black/5 dark:bg-white/5">
-                  <img src="https://res.ldrescdn.com/rms/ldplayer/process/img/5b95789c00384ad491632945de1163451765883793.png?x-oss-process=image/format,webp/quality,Q_100/resize,w_1024" alt="Guide Step 1" className="w-full h-auto max-h-[260px] object-contain mx-auto" />
-                </div>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <span className="font-bold text-black dark:text-white text-[13px] border-l-2 border-black dark:border-white pl-2">Bước 2: Bấm vào Danh Thiếp</span>
-                <div className="border border-black/10 dark:border-white/10 rounded-lg overflow-hidden bg-black/5 dark:bg-white/5">
-                  <img src="https://res.ldrescdn.com/rms/ldplayer/process/img/6d084649d1a9471caaac8a5f6aaae2961765883793.png?x-oss-process=image/format,webp/quality,Q_100/resize,w_1024" alt="Guide Step 2" className="w-full h-auto max-h-[260px] object-contain mx-auto" />
-                </div>
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <span className="font-bold text-black dark:text-white text-[13px] border-l-2 border-black dark:border-white pl-2">Bước 3: Bấm copy</span>
-                <div className="border border-black/10 dark:border-white/10 rounded-lg overflow-hidden bg-black/5 dark:bg-white/5">
-                  <img src="https://res.ldrescdn.com/rms/ldplayer/process/img/acccdc36597c467fb97444a2fa6311ff1765883793.png?x-oss-process=image/format,webp/quality,Q_100/resize,w_1024" alt="Guide Step 3" className="w-full h-auto max-h-[260px] object-contain mx-auto" />
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-end text-xs font-bold pt-2 border-t border-black/10 dark:border-white/10 sticky bottom-0 bg-white dark:bg-[#000000] z-10">
-              <button
-                onClick={() => setIsGuideModalOpen(false)}
-                className="py-2 px-5 rounded border border-black dark:border-white bg-black text-white dark:bg-white dark:text-black hover:bg-white hover:text-black dark:hover:bg-[#000000] dark:hover:text-white transition-all cursor-pointer"
-              >
-                Đã hiểu
-              </button>
-            </div>
-          </div>
-        </div>
+        <GuideModal onClose={() => setIsGuideModalOpen(false)} />
       )}
 
       {accountToDelete && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setAccountToDelete(null)}></div>
-          <div className="bg-white dark:bg-[#000000] border border-black dark:border-white p-5 rounded-xl w-full max-w-sm relative z-10 flex flex-col gap-4 shadow-xl font-mono text-xs">
-            <div className="flex items-center gap-2 pb-2 border-b border-black/20 dark:border-white/20">
-              <AlertCircle className="w-5 h-5 text-black dark:text-white" />
-              <h4 className="font-bold tracking-wider uppercase">Xác nhận xóa tài khoản</h4>
-            </div>
-            <p className="text-black/80 dark:text-white/80 leading-relaxed">
-              Bạn có chắc chắn muốn xóa tài khoản <span className="font-bold text-black dark:text-white">[{accountToDelete.roleName}]</span> (ID: {accountToDelete.roleId}) khỏi danh sách lưu trữ tạm thời không?
-            </p>
-            <div className="flex gap-2 justify-end font-bold pt-2 border-t border-black/10 dark:border-white/10">
-              <button
-                onClick={() => setAccountToDelete(null)}
-                className="py-2 px-4 rounded border border-black dark:border-white bg-white text-black dark:bg-[#000000] dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all cursor-pointer"
-              >
-                Hủy
-              </button>
-              <button
-                onClick={confirmDeleteAccount}
-                className="py-2 px-4 rounded border border-red-600 bg-red-600 text-white hover:bg-red-700 transition-all cursor-pointer"
-              >
-                Xác nhận xóa
-              </button>
-            </div>
-          </div>
-        </div>
+        <DeleteConfirmModal
+          accountToDelete={accountToDelete}
+          onCancel={() => setAccountToDelete(null)}
+          onConfirm={confirmDeleteAccount}
+        />
       )}
     </div>
   );
