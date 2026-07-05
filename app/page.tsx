@@ -506,18 +506,19 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-[#000000] rounded-xl border border-black dark:border-white flex flex-col h-[460px] lg:h-[480px] p-4 shadow-sm transition-all relative">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pb-3 border-b border-black/20 dark:border-white/20 bg-white dark:bg-[#000000] flex-shrink-0 gap-3">
+                   <div className="bg-white dark:bg-[#000000] rounded-xl border border-black dark:border-white flex flex-col h-[460px] lg:h-[480px] p-4 shadow-sm transition-all relative overflow-hidden">
+            <div className="flex flex-col gap-3 pb-3 border-b border-black/20 dark:border-white/20 bg-white dark:bg-[#000000] flex-shrink-0">
               <div className="flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${logs.length > 0 ? "bg-black dark:bg-white animate-pulse" : "bg-black/30 dark:bg-white/30"}`} />
                 <h3 className="font-bold text-xs tracking-wider text-black dark:text-white uppercase">
                   Nhật Ký Tiến Trình Thực Thi
                 </h3>
               </div>
-              <div className="flex items-center gap-1.5 w-full sm:w-auto">
+              {/* Thêm flex-wrap ở đây để tránh tràn khung */}
+              <div className="flex flex-wrap items-center gap-1.5 w-full">
                 <button
                   onClick={() => setFilter("all")}
-                  className={`flex-1 sm:flex-none text-[10px] sm:text-[11px] font-bold py-1 px-2.5 border border-black dark:border-white transition-all cursor-pointer rounded-xs active:scale-95 ${
+                  className={`text-[10px] sm:text-[11px] font-bold py-1 px-2.5 border border-black dark:border-white transition-all cursor-pointer rounded-xs active:scale-95 ${
                     filter === "all" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
                   }`}
                 >
@@ -525,7 +526,7 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => setFilter("success")}
-                  className={`flex-1 sm:flex-none text-[10px] sm:text-[11px] font-bold py-1 px-2.5 border border-black dark:border-white transition-all cursor-pointer rounded-xs active:scale-95 ${
+                  className={`text-[10px] sm:text-[11px] font-bold py-1 px-2.5 border border-black dark:border-white transition-all cursor-pointer rounded-xs active:scale-95 ${
                     filter === "success" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
                   }`}
                 >
@@ -533,7 +534,7 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => setFilter("error")}
-                  className={`flex-1 sm:flex-none text-[10px] sm:text-[11px] font-bold py-1 px-2.5 border border-black dark:border-white transition-all cursor-pointer rounded-xs active:scale-95 ${
+                  className={`text-[10px] sm:text-[11px] font-bold py-1 px-2.5 border border-black dark:border-white transition-all cursor-pointer rounded-xs active:scale-95 ${
                     filter === "error" ? "bg-black text-white dark:bg-white dark:text-black" : "bg-transparent text-black dark:text-white hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
                   }`}
                 >
@@ -583,7 +584,7 @@ export default function Home() {
               )}
             </div>
           </div>
-        </div>
+
 
         <Footer footerOpenSections={footerOpenSections} toggleFooterSection={toggleFooterSection} />
       </div>
