@@ -506,7 +506,7 @@ export default function Home() {
             </div>
           </div>
 
-                   <div className="bg-white dark:bg-[#000000] rounded-xl border border-black dark:border-white flex flex-col h-[460px] lg:h-[480px] p-4 shadow-sm transition-all relative overflow-hidden">
+          <div className="bg-white dark:bg-[#000000] rounded-xl border border-black dark:border-white flex flex-col h-[460px] lg:h-[480px] p-4 shadow-sm transition-all relative overflow-hidden">
             <div className="flex flex-col gap-3 pb-3 border-b border-black/20 dark:border-white/20 bg-white dark:bg-[#000000] flex-shrink-0">
               <div className="flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${logs.length > 0 ? "bg-black dark:bg-white animate-pulse" : "bg-black/30 dark:bg-white/30"}`} />
@@ -514,7 +514,6 @@ export default function Home() {
                   Nhật Ký Tiến Trình Thực Thi
                 </h3>
               </div>
-              {/* Thêm flex-wrap ở đây để tránh tràn khung */}
               <div className="flex flex-wrap items-center gap-1.5 w-full">
                 <button
                   onClick={() => setFilter("all")}
@@ -584,7 +583,7 @@ export default function Home() {
               )}
             </div>
           </div>
-
+        </div>
 
         <Footer footerOpenSections={footerOpenSections} toggleFooterSection={toggleFooterSection} />
       </div>
